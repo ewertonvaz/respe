@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+    postgres:
+        build:
+            context: ./postgres
+        #image: mysql:5.7
+        container_name: postgres
+        #command: createdb -E utf8 -U postgres respe
+        #volumes:
+        #    - ./files:/files
+        ports:
+            - 54320:5432
+        environment: 
+            POSTGRES_PASSWORD: P@$$w0rd20l6
+            POSTGRES_DB: respe
