@@ -7,8 +7,8 @@ services:
         #image: mysql:5.7
         container_name: postgres
         #command: createdb -E utf8 -U postgres respe
-        #volumes:
-        #    - ./files:/files
+        volumes:
+            - ./local-files:/files
         ports:
             - 54320:5432
         environment: 
