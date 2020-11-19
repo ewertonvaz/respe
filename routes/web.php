@@ -17,8 +17,27 @@ Route::get('/', function () {
     return view('main');
 });
 
+Route::resource('/cargos', 'CargosController')->except([
+    'show', 'edit'
+]);
+
+Route::get('/cargos/delete/{cargo}', function (App\Models\Cargo $cargo) {
+    if(!session()->has('redirect_to'))
+    {
+        session(['redirect_to' => url()->previous()]);
+    }
+	return view('cargos.destroy', ['cargo' => $cargo]);
+})->name('cargos.delete');
+
+Route::get('/cargos/edit/{cargo}', function (App\Models\Cargo $cargo) {
+    if(!session()->has('redirect_to'))
+    {
+        session(['redirect_to' => url()->previous()]);
+    }
+	return view('cargos.edit', ['cargo' => $cargo]);
+})->name('cargos.edit');
+
 Route::resource('/usuarios', 'UsuariosController'); 
-Route::resource('/cargos', 'CargosController');
 Route::resource('/setores', 'SetoresController');
 Route::resource('/visitantes', 'VisitantesController');
 

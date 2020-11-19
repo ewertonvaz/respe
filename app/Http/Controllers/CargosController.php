@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cargo;
+use App\Http\Requests\CargosFormRequest;
 
 class CargosController extends Controller
 {
@@ -15,7 +16,7 @@ class CargosController extends Controller
     public function index()
     {
         //
-        $cargos = Cargo::all();
+        $cargos = Cargo::paginate(10);
         return view('cargos.index', compact('cargos') );
     }
 
@@ -26,7 +27,11 @@ class CargosController extends Controller
      */
     public function create()
     {
-        //
+        if(!session()->has('redirect_to'))
+        {
+           session(['redirect_to' => url()->previous()]);
+        }
+        return view('cargos.create', ['action'=>route('cargos.store'), 'method'=>'post']);
     }
 
     /**
@@ -35,9 +40,19 @@ class CargosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CargosFormRequest $request)
     {
         //
+        if (! $request->has('cancel') ){
+            $dados = $request->all();
+            Cargo::create($dados);
+            $request->session()->flash('message', 'Cargo cadastrado com sucesso');
+        }
+        else
+        { 
+            $request->session()->flash('message', 'Operação cancelada pelo usuário'); 
+        }
+        return redirect()->to(session()->pull('redirect_to'));
     }
 
     /**
@@ -69,9 +84,20 @@ class CargosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Cargo $cargo, CargosFormRequest $request)
     {
         //
+        if (! $request->has('cancel') ){
+            $cargo->tipo_cargo = $request->input('tipo_cargo');
+            $cargo->sigla_cargo = $request->input('sigla_cargo');
+            $cargo->update();
+            $request->session()->flash('message', 'Cargo atualizado com sucesso !');
+        }
+        else
+        { 
+            $request->session()->flash('message', 'Operação cancelada pelo usuário'); 
+        }
+        return redirect()->to(session()->pull('redirect_to'));
     }
 
     /**
@@ -80,8 +106,17 @@ class CargosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Cargo $cargo, Request $request)
     {
-        //
+        if (! $request->has('cancel') ){
+            $strEqp = $cargo->tipo_cargo . ', tipo: ' . ', sigla:' . $cargo->sigla_cargo . '}';
+            $cargo->delete();
+            $request->session()->flash('message', '{cargo: ' . $strEqp . ' excluído com sucesso !');
+        }
+        else
+        { 
+            $request->session()->flash('message', 'Operação cancelada pelo usuário'); 
+        }
+        return redirect()->to(session()->pull('redirect_to'));
     }
 }

@@ -6,7 +6,7 @@
 			<h3>Listagem de Cargos</h3>
 		</div>
 		<div class="col-md-8">
-			<a href="" class="btn btn-primary">Incluir Cargo</a>
+			<a href="{{route('cargos.create')}}" class="btn btn-primary">Incluir Cargo</a>
 		</div>
 	</div>
     <div class="row">
@@ -26,17 +26,18 @@
     				<td>
     					<ul class="list-inline">
     						<li>
-    						<a href="">Editar</a>
+    						{{-- <a href="{{route('cargos.edit', ['cargo' => $cargo])}}">Editar</a> --}}
     						</li>
     						<li>
-    						<a href="">Deletar</a>
+    						{{-- <a href="{{route('cargos.delete', ['cargo' => $cargo])}}">Deletar</a> --}}
 							</li>
     					</ul>
     				</td>
     			</tr>
     		@endforeach
     		</tbody>
-    	</table>
+		</table>
+		{{$cargos->links()}}
     </div>
 </div>
 @endsection
