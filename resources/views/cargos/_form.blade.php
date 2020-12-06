@@ -27,7 +27,7 @@
 
     <div>
         <label for="tipo">Tipo Cargo</label>
-        <input type="text" id="tipo_cargo" name="tipo_cargo" {{isset($eqp) ? "value=".$cargo->tipo_cargo : ""}} {{$form_mode == "delete" ? "disabled" : ""}}>
+        <input type="text" id="tipo_cargo" name="tipo_cargo" value="{{isset($eqp) ? $cargo->tipo_cargo : old('tipo_cargo')}}" {{$form_mode == "delete" ? "disabled" : ""}}>
         @error('tipo_cargo')
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
@@ -35,7 +35,7 @@
 
     <div>
         <label for="sigla_cargo">Sigla cargo</label>
-        <input type="text" id="sigla_cargo" name="sigla_cargo" {{isset($cargo) ? "value=".$cargo->sigla_cargo : ""}} {{$form_mode == "delete" ? "disabled" : ""}}>
+        <input type="text" id="sigla_cargo" name="sigla_cargo" value="{{isset($cargo) ? $cargo->sigla_cargo : old('sigla_cargo')}}" {{$form_mode == "delete" ? "disabled" : ""}}>
         @error('sigla_cargo')
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror

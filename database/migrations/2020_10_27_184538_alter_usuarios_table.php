@@ -41,5 +41,20 @@ class AlterUsuariosTable extends Migration
     public function down()
     {
         //
+        Schema::table('respe_usuarios', function (Blueprint $table) {
+            $table->dropTimestamps();
+            $table->dropColumn('remember_token');
+            $table->dropColumn('id');
+            $table->dropColumn('name');
+            $table->dropColumn('email');
+            $table->dropColumn('email_verified_at');
+            $table->string('reg_entpess')->default('1');
+            $table->string('reg_saipess')->default('1');
+            $table->string('cons_visdia')->default('0');
+            $table->string('cons_visper')->default('0');
+            $table->string('consvis')->default('0');
+            $table->string('exc_visrea')->default('0');
+            $table->string('exc_vis')->default('0');
+        });
     }
 }

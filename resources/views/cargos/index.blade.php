@@ -13,6 +13,7 @@
     	<table class="table table-striped">
     		<thead>
     			<tr>
+    				<th>Id</th>
     				<th>Tipo cargo</th>
     				<th>Sigla</th>
     				<th>Ações</th>
@@ -21,6 +22,7 @@
     		<tbody>
     		@foreach($cargos as $cargo )
     			<tr>
+    				<td>{{ $cargo->id }}</td>
     				<td>{{ $cargo->tipo_cargo }}</td>
     				<td>{{ $cargo->sigla_cargo}}</td>
     				<td>

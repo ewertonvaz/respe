@@ -5,8 +5,11 @@
 		<div class="col-md-4">
 			<h3>Listagem de Usuários</h3>
 		</div>
-		<div class="col-md-8">
+		<div class="col-md-4">
 			<a href="" class="btn btn-primary">Incluir Usuário</a>
+		</div>
+		<div class="col-md-4">
+			<a href="{{route('cargos.create')}}" class="btn btn-primary">Incluir Cargo</a>
 		</div>
 	</div>
     <div class="row">
